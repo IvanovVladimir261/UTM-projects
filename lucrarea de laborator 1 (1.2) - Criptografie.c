@@ -5,10 +5,10 @@ int main()
 {
     //declaram variabilele intregi folosite in program
     int x,k,alege,i,j,lungime,lungime_cheie2;
-    //tabelul cu literele mari
-    char alphabet_upper[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //tabelul cu literele mari (alfabetul romanesc extins, 31 litere)
+    char alphabet_upper[] = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ";
     //tabelul cu literele mici
-    char alphabet_lower[] = "abcdefghijklmnopqrstuvwxyz";
+    char alphabet_lower[] = "aăâbcdefghiîjklmnopqrsștțuvwxyz";
     //sirul in care se citeste textul introdus de utilizator
     char text[1000];
     //textul dupa eliminarea spatiilor si conversia in majuscule
@@ -124,13 +124,13 @@ int main()
         if (alege == 1)
         {
             //deplasam litera atat cu cheia 1, cat si cu litera corespunzatoare din cheia 2
-            noua_valoare = (valoare + k + valoare_cheie2) % 26;
+            noua_valoare = (valoare + k + valoare_cheie2) % 31;
         }
         //decriptarea
         else
         {
-            //adaugam 26*2 ca sa evitam rezultat negativ
-            noua_valoare = (valoare - k - valoare_cheie2 + 26*2) % 26;
+            //adaugam 31*2 ca sa evitam rezultat negativ
+            noua_valoare = (valoare - k - valoare_cheie2 + 31*2) % 31;
         }
 
         //punem litera corespunzatoare noii valori in rezultat
