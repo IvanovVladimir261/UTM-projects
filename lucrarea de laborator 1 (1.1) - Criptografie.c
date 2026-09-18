@@ -5,15 +5,14 @@ int main()
 {
     //declaram variabilele intregi folosite in program
     int x,k,alege,i,j,lungime;
-    //tabelul cu literele mari
-    char alphabet_upper[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //tabelul cu literele mari (alfabetul romanesc extins, 31 litere)
+    char alphabet_upper[] = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ";
     //tabelul cu literele mici
-    char alphabet_lower[] = "abcdefghijklmnopqrstuvwxyz";
+    char alphabet_lower[] = "aăâbcdefghiîjklmnopqrsștțuvwxyz";
     //sirul in care se citeste textul introdus de utilizator
     char text[1000];
-    //textul dupa eliminarea spatiilor si conversia in majuscule
     char text_final[1000];
-    //rezultatul final: textul criptat sau decriptat
+    //rezultatul final
     char rezultat[1000];
 
     //afisam optiunile si citirea de la tastatura
@@ -33,7 +32,7 @@ int main()
     printf("Introduceti cheia: ");
     scanf(" %d", &k);
 
-    //verificam daca cheia e in afara intervalului 1-25
+    //verificam daca cheia e in afara intervalului
     if (k<1 || k>25)
     {
         printf("Cheia trebuie sa fie intre 1 si 25!");
@@ -53,7 +52,7 @@ int main()
         //verificam daca nu e nici spatiu, nici litera
         if (text[i] != ' ' && !isalpha(text[i]))
         {
-            printf("Text invalid! Sunt acceptate doar literele A-Z, a-z si spatiile.");
+            printf("Text invalid! Sunt acceptate doar literele de la A la Z si spatiile.");
             return 1;
         }
     }
@@ -68,9 +67,8 @@ int main()
         {
             continue;
         }
-        //copiem litera convertita in majuscula
+        //transformam litera convertita in majuscula
         text_final[j] = toupper(text[i]);
-        //avansam indexul din text_final
         j++;
     }
     //marcharea sfârșitului unui șir de caractere
@@ -89,13 +87,13 @@ int main()
         //criptarea
         if (alege == 1)
         {
-            noua_valoare = (valoare + k) % 26;
+            noua_valoare = (valoare + k) % 31;
         }
         //decriptarea
         else
         {
-            //adaugam 26 ca sa evitam rezultat negativ
-            noua_valoare = (valoare - k + 26) % 26;
+            //adaugam 31 ca sa evitam rezultat negativ
+            noua_valoare = (valoare - k + 31) % 31;
         }
 
         //punem litera corespunzatoare noii valori in rezultat
