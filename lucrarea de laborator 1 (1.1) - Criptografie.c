@@ -1,3 +1,5 @@
+#https://onlinegdb.com/JZM3c0WUq
+
 # tabelul cu literele mari
 alphabet_upper = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"
 # tabelul cu literele mici
