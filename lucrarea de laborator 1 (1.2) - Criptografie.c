@@ -1,3 +1,5 @@
+# https://onlinegdb.com/xCdWq7nDi
+
 # tabelul cu literele mari (alfabetul romanesc extins, 31 litere)
 alphabet_upper = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"
 # tabelul cu literele mici
