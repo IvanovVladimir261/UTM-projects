@@ -1,116 +1,76 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-int main()
-{
-    //declaram variabilele intregi folosite in program
-    int x,k,alege,i,j,lungime;
-    //tabelul cu literele mari (alfabetul romanesc extins, 31 litere)
-    char alphabet_upper[] = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ";
-    //tabelul cu literele mici
-    char alphabet_lower[] = "aăâbcdefghiîjklmnopqrsștțuvwxyz";
-    //sirul in care se citeste textul introdus de utilizator
-    char text[1000];
-    char text_final[1000];
-    //rezultatul final
-    char rezultat[1000];
+# tabelul cu literele mari
+alphabet_upper = "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"
+# tabelul cu literele mici
+alphabet_lower = "aăâbcdefghiîjklmnopqrsștțuvwxyz"
 
-    //afisam optiunile si citirea de la tastatura
-    printf("1 - Criptarea \n");
-    printf("2 - Decriptarea \n");
-    printf("Alege optiunea: ");
-    scanf(" %d", &alege);
+# afisam optiunile si citirea de la tastatura
+print("1 - Criptarea")
+print("2 - Decriptarea")
+alege = int(input("Alege optiunea: "))
 
-    //verificam daca optiunea nu e 1 sau 2
-    if (alege!=1 && alege!=2)
-    {
-        printf("Optiune gresita!");
-        return 1;
-    }
+# verificam daca optiunea nu e 1 sau 2
+if alege != 1 and alege != 2:
+    print("Optiune gresita!")
+    exit(1)
 
-    //cerem cheia si citirea de la tastatura
-    printf("Introduceti cheia: ");
-    scanf(" %d", &k);
+# cerem cheia si citirea de la tastatura
+k = int(input("Introduceti cheia: "))
 
-    //verificam daca cheia e in afara intervalului
-    if (k<1 || k>25)
-    {
-        printf("Cheia trebuie sa fie intre 1 si 25!");
-        return 1;
-    }
+# verificam daca cheia e in afara intervalului
+if k < 1 or k > 25:
+    print("Cheia trebuie sa fie intre 1 si 25!")
+    exit(1)
 
-    //cerem textul
-    printf("Introduceti textul: ");
-    //citirea caracterelor pana nu va aparea \n
-    scanf(" %[^\n]", text);
-    // calculam lungimea textului citit
-    lungime=strlen(text);
+# cerem textul
+text = input("Introduceti textul: ")
+# calculam lungimea textului citit
+lungime = len(text)
 
-    //parcurgem fiecare caracter din text si verificam daca in text este ceva inafara de litere
-    for (i=0; i<lungime; i++)
-    {
-        //verificam daca nu e nici spatiu, nici litera
-        if (text[i] != ' ' && !isalpha(text[i]))
-        {
-            printf("Text invalid! Sunt acceptate doar literele de la A la Z si spatiile.");
-            return 1;
-        }
-    }
+# parcurgem fiecare caracter din text si verificam daca in text este ceva inafara de litere
+for i in range(lungime):
+    # verificam daca nu e nici spatiu, nici litera
+    if text[i] != " " and not text[i].isalpha():
+        print(
+            "Text invalid! Sunt acceptate doar literele alfabetului romanesc si spatiile."
+        )
+        exit(1)
 
-    //initializam indexul pentru text_final
-    j = 0;
-    //parcurgem textul ca sa eliminam spatiile si sa convertim in majuscule
-    for (i=0; i<lungime; i++)
-    {
-        //daca e spatiu, il sarim
-        if (text[i] == ' ')
-        {
-            continue;
-        }
-        //transformam litera convertita in majuscula
-        text_final[j] = toupper(text[i]);
-        j++;
-    }
-    //marcharea sfârșitului unui șir de caractere
-    text_final[j] = '\0';
-    // actualizam lungimea, dupa eliminarea spatiilor
-    lungime = j;
+# initializam sirul text_final (textul dupa eliminarea spatiilor si conversia in majuscule)
+text_final = ""
+# parcurgem textul ca sa eliminam spatiile si sa convertim in majuscule
+for i in range(lungime):
+    # daca e spatiu, il sarim
+    if text[i] == " ":
+        continue
+    # transformam litera convertita in majuscula
+    text_final += text[i].upper()
 
-    //parcurgem fiecare litera din text_final pentru criptare sau decriptare
-    for (i=0; i<lungime; i++)
-    {
-        //aflam valoarea numerica a literei cautand-o in alphabet_upper
-        int valoare = strchr(alphabet_upper, text_final[i]) - alphabet_upper;
-        //aici va fi pusa valoarea rezultata dupa deplasare
-        int noua_valoare;
+# actualizam lungimea, dupa eliminarea spatiilor
+lungime = len(text_final)
 
-        //criptarea
-        if (alege == 1)
-        {
-            noua_valoare = (valoare + k) % 31;
-        }
-        //decriptarea
-        else
-        {
-            //adaugam 31 ca sa evitam rezultat negativ
-            noua_valoare = (valoare - k + 31) % 31;
-        }
+# rezultatul final
+rezultat = ""
+# parcurgem fiecare litera din text_final pentru criptare sau decriptare
+for i in range(lungime):
+    # aflam valoarea numerica a literei cautand-o in alphabet_upper
+    valoare = alphabet_upper.index(text_final[i])
+    # aici va fi pusa valoarea rezultata dupa deplasare
+    noua_valoare = None
 
-        //punem litera corespunzatoare noii valori in rezultat
-        rezultat[i] = alphabet_upper[noua_valoare];
-    }
-    //marcharea sfârșitului unui șir de caractere
-    rezultat[lungime] = '\0';
+    # criptarea
+    if alege == 1:
+        noua_valoare = (valoare + k) % 31
+    # decriptarea
+    else:
+        # adaugam 31 ca sa evitam rezultat negativ
+        noua_valoare = (valoare - k + 31) % 31
 
-    //criptarea
-    if (alege == 1)
-    {
-        printf("\nMesajul criptat este: %s\n", rezultat);
-    }
-    //decriptarea
-    else
-    {
-        printf("\nMesajul decriptat este: %s\n", rezultat);
-    }
-    return 0;
-}
+    # punem litera corespunzatoare noii valori in rezultat
+    rezultat += alphabet_upper[noua_valoare]
+
+# criptarea
+if alege == 1:
+    print(f"\nMesajul criptat este: {rezultat}")
+# decriptarea
+else:
+    print(f"\nMesajul decriptat este: {rezultat}")
